@@ -1,0 +1,21 @@
+mezcalium:
+  logger:
+    level: INFO
+  site:
+    initialUrl: 'https://katalon-demo-cura.herokuapp.com/'
+  webDriver:
+    selectBrowser: firefox
+    browsersConfigurations:
+      firefox:
+        driverPathFile: 'D:/dev/drivers/geckodriver.exe'
+    retryOnFailure:
+      maxAttempts: 10
+      runEvery: 100
+    waitTimes:
+      implicitlyWait: 100
+      pageLoadTimeout: 1000
+      poolingEvery: 500
+  webElementHighlight:
+    color: '#00FF24'
+    size: 4px
+    type: dashed

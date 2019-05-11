@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration>
+
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+	<property name="CONSOLE_PATTERN" value="%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %magenta([%15t]) %highlight(%-5p) %cyan(%-50c{1}) : %m%n" />
+	<property name="FILE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%15t] %-5p %-50c{1} : %m%n" />
+	<property name="FILE_DATE" value="%d{yyyy-MM-dd-HH-mm-ss-SSS}" />
+	<property name="DIR_LOGS" value="evidence/logs" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${CONSOLE_PATTERN}</pattern>
+		</layout>
+	</appender>
+	
+	<appender name="DINAMIC_FILE" class="ch.qos.logback.classic.sift.SiftingAppender">
+		<discriminator>
+			<key>loggerFileName</key>
+			<defaultValue>DefaultLoggerFile</defaultValue>
+		</discriminator>
+		<sift>
+			<appender name="TEST_CASE_FILE" class="ch.qos.logback.core.FileAppender">
+				<file>${DIR_LOGS}/${loggerFileName}.log</file>
+				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+					<pattern>${FILE_PATTERN}</pattern>
+				</encoder>
+			</appender>
+		</sift>
+	</appender>
+
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="DINAMIC_FILE" />
+	</root>
+</configuration>
